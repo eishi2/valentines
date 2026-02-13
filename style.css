@@ -1,0 +1,237 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 50%, #6c5b7b 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+        }
+
+        /* Floating hearts background */
+        .background-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.6;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .card-wrapper {
+            perspective: 1000px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .card {
+            width: 400px;
+            height: 500px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .card.open {
+            transform: rotateY(180deg);
+        }
+
+        /* Front of card */
+        .card-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff85a1 100%);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            backface-visibility: hidden;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .card-front h1 {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: heartBeat 1.5s ease-in-out infinite;
+        }
+
+        .decorative-heart {
+            font-size: 80px;
+            margin: 20px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .card-front p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 20px;
+        }
+
+        /* Back of card */
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            backface-visibility: hidden;
+            transform: rotateY(180deg);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .card-back h2 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-back p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .signature {
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 30px;
+            font-size: 1.3rem;
+        }
+
+        /* Button */
+        .open-button {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .open-button:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateX(-50%) scale(1.05);
+        }
+
+        .open-button:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+
+        /* Confetti animation */
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.1);
+            }
+            50% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(800px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .card {
+                width: 350px;
+                height: 450px;
+            }
+
+            .card-front h1 {
+                font-size: 2rem;
+            }
+
+            .decorative-heart {
+                font-size: 60px;
+            }
+
+            .card-back h2 {
+                font-size: 1.5rem;
+            }
+
+            .floating-heart {
+                font-size: 30px;
+            }
+        }
